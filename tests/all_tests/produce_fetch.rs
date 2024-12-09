@@ -67,14 +67,13 @@ fn message_set_v1_produce_fetch() {
     ];
 
     let mut encoded = BytesMut::new();
-    RecordBatchEncoder::encode_with_custom_compression(
+    RecordBatchEncoder::encode(
         &mut encoded,
         &records,
         &RecordEncodeOptions {
             version: 1,
             compression: Compression::None,
         },
-        Some(compress_record_batch_data),
     )
     .unwrap();
 

@@ -125,11 +125,7 @@ mod client_tests {
                 assert_eq!(partition.aborted_transactions.as_ref().unwrap().len(), 0);
 
                 let mut records = partition.records.unwrap();
-                let records = RecordBatchDecoder::decode_with_custom_compression(
-                    &mut records,
-                    Some(decompress_record_batch_data),
-                )
-                .unwrap();
+                let records = RecordBatchDecoder::decode(&mut records).unwrap();
                 assert_eq!(records.len(), 1);
                 for record in records {
                     assert_eq!(
@@ -165,11 +161,7 @@ mod client_tests {
                 assert_eq!(partition.aborted_transactions.as_ref().unwrap().len(), 0);
 
                 let mut records = partition.records.unwrap();
-                let records = RecordBatchDecoder::decode_with_custom_compression(
-                    &mut records,
-                    Some(decompress_record_batch_data),
-                )
-                .unwrap();
+                let records = RecordBatchDecoder::decode(&mut records).unwrap();
                 assert_eq!(records.len(), 1);
             }
         }

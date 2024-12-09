@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `Records::encode`/`Records::decode` no longer has unneeded trait bounds.
+
 ## v0.14.0
 
 - `Records::encode`/`Records::decode` is now reverted back to their original API, instead `encode_with_custom_compression` and `decode_with_custom_compression` is provided for custom compression.

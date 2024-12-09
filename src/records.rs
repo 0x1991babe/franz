@@ -158,16 +158,11 @@ const MAGIC_BYTE_OFFSET: usize = 16;
 impl RecordBatchEncoder {
     /// Encode records into given buffer, using provided encoding options that select the encoding
     /// strategy based on version.
-    pub fn encode<'a, B, I, CF>(
-        buf: &mut B,
-        records: I,
-        options: &RecordEncodeOptions,
-    ) -> Result<()>
+    pub fn encode<'a, B, I>(buf: &mut B, records: I, options: &RecordEncodeOptions) -> Result<()>
     where
         B: ByteBufMut,
         I: IntoIterator<Item = &'a Record>,
         I::IntoIter: Clone,
-        CF: Fn(&mut BytesMut, &mut B, Compression) -> Result<()>,
     {
         Self::encode_with_custom_compression(
             buf,
@@ -507,10 +502,7 @@ impl RecordBatchEncoder {
 
 impl RecordBatchDecoder {
     /// Decode the provided buffer into a vec of records.
-    pub fn decode<B: ByteBuf, F>(buf: &mut B) -> Result<Vec<Record>>
-    where
-        F: Fn(&mut bytes::Bytes, Compression) -> Result<B>,
-    {
+    pub fn decode<B: ByteBuf>(buf: &mut B) -> Result<Vec<Record>> {
         Self::decode_with_custom_compression(
             buf,
             None::<fn(&mut bytes::Bytes, Compression) -> Result<B>>,
